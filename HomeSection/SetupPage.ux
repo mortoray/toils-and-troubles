@@ -19,16 +19,24 @@
 		<IconButton Value="&#xE145;"/>
 	</Circle>
 	<ScrollView>
-		<StackPanel ItemSpacing="5" Margin="5">
+		<StackPanel ItemSpacing="3" Margin="0,3">
 			<Each Items="{defns}">
-				<DockPanel HitTestMode="LocalBounds" Padding="5" Clicked="{edit}">
-					<Rectangle Layer="Background" CornerRadius="5" Color="{Resource PrimaryLightColor}"/>
+				<DockPanel HitTestMode="LocalBounds" Padding="5" Clicked="{edit}"
+					Color="{Resource PrimaryLightColor}">
 					
-					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="64"
-						Color="{Resource TextLinkColor}" Font="{Resource TaskTitleFont}"/>
+					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="54"
+						Color="{Resource TextLinkColor}" Font="{Resource TaskTitleFont}"
+						MinWidth="64"/>
 					
-					<Text Value="{name}" Alignment="Top" FontSize="40" Margin="5,0"/>
-					<Text Value="{desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
+					<Panel Dock="Right">
+						<Text Dock="Right" Value="&#xE5CC;" Alignment="Center" FontSize="32"
+							Font="{Resource IconFont}"/>
+					</Panel>
+					
+					<Text Value="{name}" Alignment="Top" FontSize="32" Margin="5,0"
+						Font="{Resource TaskTitleFont}"/>
+					<Text Value="{desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
+						Font="{Resource RegularFont}"/>
 					
 					<LayoutAnimation>
 						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>

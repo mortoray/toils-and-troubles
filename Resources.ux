@@ -3,9 +3,9 @@
 	<float4 ux:Global="PrimaryLightColor" ux:Value="#FFFFFF"/>
 	<float4 ux:Global="PrimaryDarkColor" ux:Value="#D0D0D0"/>
 
-	<float4 ux:Global="SecondaryColor" ux:Value="#f48fb1"/>
-	<float4 ux:Global="SecondaryLightColor" ux:Value="#ffc1e3"/>
-	<float4 ux:Global="SecondaryDarkColor" ux:Value="#bf5f82"/>
+	<float4 ux:Global="SecondaryColor" ux:Value="#F0D8D8"/>
+	<float4 ux:Global="SecondaryLightColor" ux:Value="#FFF8F8"/>
+	<float4 ux:Global="SecondaryDarkColor" ux:Value="#D0E4E4"/>
 
 	<float4 ux:Global="TextPrimaryColor" ux:Value="#000000"/>
 	<float4 ux:Global="TextSecondaryColor" ux:Value="#222222"/>
@@ -16,6 +16,10 @@
 	
 	<Font ux:Global="IconFont" File="Assets/MaterialIcons-Regular.ttf"/>
 	<Font ux:Global="TaskTitleFont" File="Assets/Montserrat-Regular.ttf"/>
+	
+	<Font ux:Global="DiminishedFont" File="Assets/Lato/Lato-LightItalic.ttf"/>
+	<Font ux:Global="RegularFont" File="Assets/Lato/Lato-Regular.ttf"/>
+	<Font ux:Global="IconLabelFont" File="Assets/Lato/Lato-Medium.ttf"/>
 
 	<float ux:Key="FontSize" ux:Value="22"/>
 	<float ux:Key="IconFontSize" ux:Value="32"/>
@@ -26,7 +30,7 @@
 		<Text Value="{Property this.Value}" Alignment="Center" FontSize="{Resource FontSize}"
 			Color="{Resource TextLinkColor}"/>
 	</Panel>
-	<Panel ux:Class="IconButton" Padding="10,5">
+	<Panel ux:Class="IconButton" Padding="5" HitTestMode="LocalBounds">
 		<string ux:Property="Value"/>
 		<Text Value="{Property this.Value}" Alignment="Center" FontSize="{Resource FontSize} * 1.5"
 			Color="{Resource TextLinkColor}" Font="{Resource IconFont}"/>

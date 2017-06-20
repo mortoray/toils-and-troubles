@@ -13,31 +13,32 @@
 		<Text FontSize="32" Alignment="Center" Value="Nothing to do"/>
 	</WhileEmpty>
 	<ScrollView>
-		<StackPanel ItemSpacing="5" Margin="5">
+		<StackPanel ItemSpacing="3" Margin="0,3">
 			<Each Items="{tasks}">
-				<DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
-					<Rectangle Layer="Background" CornerRadius="5" Color="{Resource PrimaryLightColor}"/>
+				<DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5"
+					Color="{Resource PrimaryLightColor}">
 					
-					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="64"
-						Color="{Resource TextLinkColor}"/>
+					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="54"
+						MinWidth="64" Color="{Resource TextLinkColor}"/>
 					
-					<Text Value="{name}" Alignment="Top" FontSize="40" Margin="5,0"
-						Font="{Resource TaskTitleFont}"/>
-					<Text Value="{desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
-					
-					<Text Alignment="BottomRight" Value="{period}" Margin="5,0"/>
-					
-					<Panel Dock="Right">
+					<Panel Dock="Right" Width="56">
 						<WhileTrue Value="{remain} > 0">
-							<Text Dock="Right" Value="&#xE5CA;" Alignment="Center" FontSize="64"
+							<Text Dock="Right" Value="&#xE5CA;" Alignment="Center" FontSize="54"
 								Color="{Resource TextLinkColor}" Font="{Resource IconFont}"
 								Clicked="{complete}"/>
 						</WhileTrue>
-						<WhileTrue Value="{remain} == 0">
-							<Text Dock="Right" Value="&#xE166;" Alignment="Center" FontSize="64"
-								Color="{Resource TextLinkColor}" Font="{Resource IconFont}"/>
-						</WhileTrue>
 					</Panel>
+					
+					<StackPanel Dock="Right" Margin="5,0">
+						<Panel Padding="5,2" Alignment="Right">
+							<Text Value="{period}" FontSize="14" Font="{Resource DiminishedFont}"/>
+						</Panel>
+					</StackPanel>
+					
+					<Text Value="{name}" Alignment="Top" FontSize="32" Margin="5,0"
+						Font="{Resource TaskTitleFont}"/>
+					<Text Value="{desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
+						Font="{Resource RegularFont}"/>
 					
 					<RemovingAnimation>
 						<Move X="-1" RelativeTo="ParentSize" Duration="0.3"/>
