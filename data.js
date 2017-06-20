@@ -3,13 +3,26 @@ var Observable = require("FuseJS/Observable")
 var tasks = Observable()
 exports.tasks = tasks
 
+var defns = Observable()
+exports.defns = defns
+
 var tasksMap = {}
+var defnMap = {}
+
 exports.getTask = function(id) {
 	if (id in taskMap) {
 		return taskMap[id]
 	}
 
 	//TODO: return dummy?
+	return Observable()
+}
+
+exports.getDefn = function(id) {
+	if (id in defnMap) {
+		return defnMap[id]
+	}
+	
 	return Observable()
 }
 
@@ -58,11 +71,13 @@ function init() {
 	fixedDefns.forEach( function(v) {
 		var activity = Observable()
 		var defn = Observable(v)
+		defnMap[v.id] = defn
+		defns.add(defn)
 		
 		task = {
 			id: v.id,
 			remain: Observable(0),
-			defn: Observable(v),
+			defn: defn,
 			activity: activity,
 		}
 		tasksMap[task.id] = task

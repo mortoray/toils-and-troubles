@@ -21,7 +21,8 @@
 					<Text Dock="Left" Value="{defn.icon}" Alignment="Center" FontSize="64"
 						Color="{Resource TextLinkColor}"/>
 					
-					<Text Value="{defn.name}" Alignment="Top" FontSize="40" Margin="5,0"/>
+					<Text Value="{defn.name}" Alignment="Top" FontSize="40" Margin="5,0"
+						Font="{Resource TaskTitleFont}"/>
 					<Text Value="{defn.desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
 					
 					<Panel Dock="Right">

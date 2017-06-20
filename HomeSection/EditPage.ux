@@ -1,0 +1,59 @@
+<ActionPage ux:Class="EditPage" Title="Edit Task">
+	<JavaScript>
+		var data = require("../data")
+		
+		var defn = this.Parameter.map( function(v) {
+			var d = data.getDefn(v.id)
+			return d
+		}).innerTwoWay()
+
+		exports.name = defn.pickTwoWay( "name" )
+		exports.desc = defn.pickTwoWay( "desc" )
+		exports.period = defn.pickTwoWay( "period" )
+		exports.periodStep = defn.pickTwoWay( "periodStep" )
+		exports.count = defn.pickTwoWay( "count" )
+		exports.icon = defn.pickTwoWay( "icon" )
+	</JavaScript>
+	<ScrollView>
+		<Text ux:Class="SetupLabel" FontSize="{Resource FontSize}" Alignment="Right"/>
+		<TextBox ux:Class="SetupInput" FontSize="{Resource FontSize}"/>
+		<Grid Columns="1*,1*">
+			<SetupLabel Value="Name"/>
+			<SetupInput Value="{name}"/>
+			
+			<SetupLabel Value="Description"/>
+			<SetupInput Value="{desc}"/>
+			
+			<WrapPanel ColumnSpan="2">
+				<Selection Value="{period}" MinCount="1" MaxCount="1"/>
+				
+				<Panel ux:Class="PeriodOpt" Margin="5" Color="{Resource PrimaryLightColor}">
+					<string ux:Property="Value"/>
+					<string ux:Property="Label"/>
+					<Selectable Value="{ReadProperty this.Value}"/>
+					<Text Value="{ReadProperty this.Label}"/>
+					<WhileSelected>
+						<Change this.Color="{Resource PrimaryDarkColor}"/>
+					</WhileSelected>
+					<Tapped>
+						<ToggleSelection/>
+					</Tapped>
+				</Panel>
+				
+				<!-- TODO: how to use the `Period` enum directly? -->
+				<PeriodOpt Value="daily" Label="Daily"/>
+				<PeriodOpt Value="weekly" Label="Weekly"/>
+				<PeriodOpt Value="monthly" Label="Monthly"/>
+			</WrapPanel>
+			
+			<SetupLabel Value="Period Step"/>
+			<SetupInput Value="{periodStep}"/>
+			
+			<SetupLabel Value="Per Period"/>
+			<SetupInput Value="{count}"/>
+
+			<SetupLabel Value="Icon"/>
+			<SetupInput Value="{icon}"/>
+		</Grid>
+	</ScrollView>
+</ActionPage>

@@ -8,6 +8,7 @@
 
 		<Navigator>
 			<HomeSection ux:Template="home"/>
+			<EditPage ux:Template="edit"/>
 		</Navigator>
 	</DockPanel>
 </Navigator>

@@ -12,7 +12,7 @@
 				}
 			</JavaScript>
 			<WhileCanGoBack>
-				<IconButton Alignment="Left" Value="&#xf2fa;" Clicked="{goBack}"/>
+				<IconButton Alignment="Left" Value="&#xE5C4;" Clicked="{goBack}"/>
 			</WhileCanGoBack>
 
 			<Text Alignment="Center" Value="{Resource Title}" FontSize="{Resource FontSize}"/>

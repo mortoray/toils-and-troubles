@@ -1,12 +1,31 @@
-<ActionPage ux:Class="SetupPage" Title="Task Setup">
+<ActionPage ux:Class="SetupPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
 
 	<JavaScript>
 		var app = require( "../app" )
 		var data = require("../data")
-		exports.tasks = data.tasks
+		exports.defns = data.defns
+		
+		exports.edit = function(args) {
+			app.router.push( "app", {}, "edit", { id: args.data.id } )
+		}
 	</JavaScript>
 	<ScrollView>
 		<StackPanel ItemSpacing="5" Margin="5">
+			<Each Items="{defns}">
+				<DockPanel HitTestMode="LocalBounds" Padding="5" Clicked="{edit}">
+					<Rectangle Layer="Background" CornerRadius="5" Color="{Resource PrimaryLightColor}"/>
+					
+					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="64"
+						Color="{Resource TextLinkColor}" Font="{Resource TaskTitleFont}"/>
+					
+					<Text Value="{name}" Alignment="Top" FontSize="40" Margin="5,0"/>
+					<Text Value="{desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
+					
+					<LayoutAnimation>
+						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>
+					</LayoutAnimation>
+				</DockPanel>
+			</Each>
 		</StackPanel>
 	</ScrollView>
 </ActionPage>
