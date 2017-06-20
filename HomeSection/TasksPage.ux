@@ -25,6 +25,8 @@
 						Font="{Resource TaskTitleFont}"/>
 					<Text Value="{desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
 					
+					<Text Alignment="BottomRight" Value="{period}" Margin="5,0"/>
+					
 					<Panel Dock="Right">
 						<WhileTrue Value="{remain} > 0">
 							<Text Dock="Right" Value="&#xE5CA;" Alignment="Center" FontSize="64"

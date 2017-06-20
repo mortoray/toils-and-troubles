@@ -6,6 +6,14 @@
 		
 		exports.saveAll = data.saveAll
 		exports.sampleData = data.sampleData
+		
+		exports.nextDay = function() {
+			data.setDate( data.currentDate.value.add('1', 'days') )
+		}
+		
+		exports.date = data.currentDate.map( function(v) {
+			return v.format("LLLL")
+		})
 	</JavaScript>
 	
 	<ScrollView>
@@ -17,6 +25,8 @@
 			
 			<TextButton Value="Save All" Clicked="{saveAll}"/>
 			<TextButton Value="Sample Data" Clicked="{sampleData}"/>
+			<Text Alignment="Center" Value="{date}"/>
+			<TextButton Value="Next Day" Clicked="{nextDay}"/>
 		</StackPanel>
 	</ScrollView>
 </ActionPage>
