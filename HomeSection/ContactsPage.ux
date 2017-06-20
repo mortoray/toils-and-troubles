@@ -1,0 +1,3 @@
+<ActionPage ux:Class="ContactsPage" Title="Contacts">
+	<Text Value="Contacts"/>
+</ActionPage>

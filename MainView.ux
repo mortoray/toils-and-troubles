@@ -1,0 +1,26 @@
+<App>
+	<Router ux:Name="router"/>
+	<ResourceObject Key="Router" Value="router"/>
+
+	<JavaScript>
+		var app = require( "./app"  )
+		app.setRouter( router )
+		exports.done = function() {
+			router.goto( "app", {}, "home" )
+		}
+	</JavaScript>
+	<ClientPanel>
+		<Resources/>
+		<Completed Handler="{done}">
+			<Set done.Value="true"/>
+		</Completed>
+		<WhileBusy>
+			<Text Alignment="Center" TextWrapping="Wrap" Value="Toils &amp; Troubles" Width="80"
+				FontSize="40"/>
+		</WhileBusy>
+		
+		<WhileTrue ux:Name="done">
+			<TopLevelNavigation/>
+		</WhileTrue>
+	</ClientPanel>
+</App>

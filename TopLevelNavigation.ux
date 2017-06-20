@@ -1,0 +1,13 @@
+<Navigator ux:Class="TopLevelNavigation">
+
+	<DockPanel ux:Template="app">
+		<Panel Dock="Top" Height="40" Color="{Resource PrimaryColor}" ux:Name="actionBar">
+			<Rectangle Alignment="Bottom" Height="1px" Color="{Resource PrimaryDarkColor}"/>
+		</Panel>
+		<ResourceObject Key="ActionBar" Value="actionBar"/>
+
+		<Navigator>
+			<HomeSection ux:Template="home"/>
+		</Navigator>
+	</DockPanel>
+</Navigator>

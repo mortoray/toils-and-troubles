@@ -1,0 +1,34 @@
+<NodeGroup ux:Class="Resources">
+	<float4 ux:Global="PrimaryColor" ux:Value="#F8F8F8"/>
+	<float4 ux:Global="PrimaryLightColor" ux:Value="#FFFFFF"/>
+	<float4 ux:Global="PrimaryDarkColor" ux:Value="#D0D0D0"/>
+
+	<float4 ux:Global="SecondaryColor" ux:Value="#f48fb1"/>
+	<float4 ux:Global="SecondaryLightColor" ux:Value="#ffc1e3"/>
+	<float4 ux:Global="SecondaryDarkColor" ux:Value="#bf5f82"/>
+
+	<float4 ux:Global="TextPrimaryColor" ux:Value="#000000"/>
+	<float4 ux:Global="TextSecondaryColor" ux:Value="#222222"/>
+	<float4 ux:Global="TextSecondaryLightColor" ux:Value="#888888"/>
+
+	<float4 ux:Global="TextLinkColor" ux:Value="#8080F0"/>
+	<float4 ux:Global="TextLinkInactiveColor" ux:Value="#B0B0B0"/>
+	
+	<Font ux:Global="IconFont" File="Assets/MaterialIcons-Regular.ttf"/>
+
+	<float ux:Key="FontSize" ux:Value="22"/>
+	<float ux:Key="IconFontSize" ux:Value="32"/>
+	<float ux:Key="IconLabelFontSize" ux:Value="18"/>
+
+	<Panel ux:Class="TextButton" Padding="10,5">
+		<string ux:Property="Value"/>
+		<Text Value="{Property this.Value}" Alignment="Center" FontSize="{Resource FontSize}"
+			Color="{Resource TextLinkColor}"/>
+	</Panel>
+	<Panel ux:Class="IconButton" Padding="10,5">
+		<string ux:Property="Value"/>
+		<Text Value="{Property this.Value}" Alignment="Center" FontSize="{Resource FontSize} * 1.5"
+			Color="{Resource TextLinkColor}" Font="{Resource IconFont}"/>
+	</Panel>
+
+</NodeGroup>

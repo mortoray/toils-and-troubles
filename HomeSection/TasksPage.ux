@@ -1,0 +1,49 @@
+<ActionPage ux:Class="TasksPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
+
+	<JavaScript>
+		var app = require( "../app" )
+		var data = require("../data")
+		exports.tasks = data.tasks
+		
+		exports.complete = function(args) {
+			data.addActivity( args.data )
+		}
+	</JavaScript>
+	<WhileEmpty Items="{tasks}">
+		<Text FontSize="32" Alignment="Center" Value="Nothing to do"/>
+	</WhileEmpty>
+	<ScrollView>
+		<StackPanel ItemSpacing="5" Margin="5">
+			<Each Items="{tasks}">
+				<DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
+					<Rectangle Layer="Background" CornerRadius="5" Color="{Resource PrimaryLightColor}"/>
+					
+					<Text Dock="Left" Value="{defn.icon}" Alignment="Center" FontSize="64"
+						Color="{Resource TextLinkColor}"/>
+					
+					<Text Value="{defn.name}" Alignment="Top" FontSize="40" Margin="5,0"/>
+					<Text Value="{defn.desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
+					
+					<Panel Dock="Right">
+						<WhileTrue Value="{remain} > 0">
+							<Text Dock="Right" Value="&#xE5CA;" Alignment="Center" FontSize="64"
+								Color="{Resource TextLinkColor}" Font="{Resource IconFont}"
+								Clicked="{complete}"/>
+						</WhileTrue>
+						<WhileTrue Value="{remain} == 0">
+							<Text Dock="Right" Value="&#xE166;" Alignment="Center" FontSize="64"
+								Color="{Resource TextLinkColor}" Font="{Resource IconFont}"/>
+						</WhileTrue>
+					</Panel>
+					
+					<RemovingAnimation>
+						<Move X="-1" RelativeTo="ParentSize" Duration="0.3"/>
+					</RemovingAnimation>
+					<LayoutAnimation>
+						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>
+					</LayoutAnimation>
+				</DockPanel>
+			</Each>
+		</StackPanel>
+	</ScrollView>
+</ActionPage>

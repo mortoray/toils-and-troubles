@@ -1,0 +1,21 @@
+<NodeGroup ux:Class="ActionBar">
+	<WhileActive Threshold="0.5" Path="Local">
+		<Change titleRegion.IsEnabled="true"/>
+	</WhileActive>
+
+	<AlternateRoot ParentNode="{Resource ActionBar}" IsEnabled="false" ux:Name="titleRegion">
+		<Panel Navigation="{Resource Router}">
+			<JavaScript>
+				var app = require( "../app" )
+				exports.goBack = function() {
+					app.router.goBack()
+				}
+			</JavaScript>
+			<WhileCanGoBack>
+				<IconButton Alignment="Left" Value="&#xf2fa;" Clicked="{goBack}"/>
+			</WhileCanGoBack>
+
+			<Text Alignment="Center" Value="{Resource Title}" FontSize="{Resource FontSize}"/>
+		</Panel>
+	</AlternateRoot>
+</NodeGroup>
