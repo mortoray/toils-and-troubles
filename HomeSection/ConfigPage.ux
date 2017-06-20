@@ -1,0 +1,22 @@
+<ActionPage ux:Class="ConfigPage" Title="App Configuration">
+
+	<JavaScript>
+		var app = require( "../app" )
+		var data = require("../data")
+		
+		exports.saveAll = data.saveAll
+		exports.sampleData = data.sampleData
+	</JavaScript>
+	
+	<ScrollView>
+		<StackPanel>
+			<Text Background="{Resource PrimaryLightColor}" Value="Useful Stuff"/>
+			
+			<Panel Height="20"/>
+			<Text Background="{Resource PrimaryLightColor}" Value="Debugging Stuff"/>
+			
+			<TextButton Value="Save All" Clicked="{saveAll}"/>
+			<TextButton Value="Sample Data" Clicked="{sampleData}"/>
+		</StackPanel>
+	</ScrollView>
+</ActionPage>

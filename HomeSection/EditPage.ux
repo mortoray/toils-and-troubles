@@ -13,7 +13,13 @@
 		exports.periodStep = defn.pickTwoWay( "periodStep" )
 		exports.count = defn.pickTwoWay( "count" )
 		exports.icon = defn.pickTwoWay( "icon" )
+		
+		exports.onDone = function() {
+			data.modifiedDefn(defn.value)
+		}
 	</JavaScript>
+	<Deactivated Handler="{onDone}"/>
+	
 	<ScrollView>
 		<Text ux:Class="SetupLabel" FontSize="{Resource FontSize}" Alignment="Right"/>
 		<TextBox ux:Class="SetupInput" FontSize="{Resource FontSize}"/>

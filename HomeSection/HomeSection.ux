@@ -2,15 +2,19 @@
 	<DockPanel>
 		<PageControl ux:Name="homeNav">
 			<TasksPage ux:Name="tasks">
-				<string ux:Key="Title" ux:Value="Tasks"/>
+				<string ux:Key="ShortTitle" ux:Value="Tasks"/>
 				<string ux:Key="Icon" ux:Value="&#xE896;"/>
 			</TasksPage>
 
 			<SetupPage ux:Name="setup">
-				<string ux:Key="Title" ux:Value="Setup"/>
+				<string ux:Key="ShortTitle" ux:Value="Setup"/>
 				<string ux:Key="Icon" ux:Value="&#xE869;"/>
 			</SetupPage>
 
+			<ConfigPage ux:Name="config">
+				<string ux:Key="ShortTitle" ux:Value="Config"/>
+				<string ux:Key="Icon" ux:Value="&#xE8B8;"/>
+			</ConfigPage>
 		</PageControl>
 
 		<PageIndicator Navigation="homeNav" Dock="Bottom" Color="{Resource PrimaryColor}">
@@ -19,7 +23,7 @@
 			<StackPanel ux:Template="Dot" Alignment="Center" ItemSpacing="5" Margin="5">
 				<Text Value="{Page Icon}" Font="{Resource IconFont}" FontSize="{Resource IconFontSize}"
 					Color="{Resource TextLineInactive}" TextAlignment="Center" ux:Name="icon"/>
-				<Text Value="{Page Title}" FontSize="{Resource IconLabelFontSize}" 
+				<Text Value="{Page ShortTitle}" FontSize="{Resource IconLabelFontSize}" 
 					Color="{Resource TextLineInactive}" TextAlignment="Center" ux:Name="label"/>
 				<ActivatingAnimation>
 					<Change icon.Color="{Resource TextLinkColor}"/>

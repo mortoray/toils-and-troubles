@@ -6,7 +6,7 @@
 		exports.tasks = data.tasks
 		
 		exports.complete = function(args) {
-			data.addActivity( args.data )
+			data.addActivity( data.getDefn(args.data.id) )
 		}
 	</JavaScript>
 	<WhileEmpty Items="{tasks}">
@@ -18,12 +18,12 @@
 				<DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
 					<Rectangle Layer="Background" CornerRadius="5" Color="{Resource PrimaryLightColor}"/>
 					
-					<Text Dock="Left" Value="{defn.icon}" Alignment="Center" FontSize="64"
+					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="64"
 						Color="{Resource TextLinkColor}"/>
 					
-					<Text Value="{defn.name}" Alignment="Top" FontSize="40" Margin="5,0"
+					<Text Value="{name}" Alignment="Top" FontSize="40" Margin="5,0"
 						Font="{Resource TaskTitleFont}"/>
-					<Text Value="{defn.desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
+					<Text Value="{desc}" Alignment="Bottom" FontSize="20" Margin="5,0"/>
 					
 					<Panel Dock="Right">
 						<WhileTrue Value="{remain} > 0">
