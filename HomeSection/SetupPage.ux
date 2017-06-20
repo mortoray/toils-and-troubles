@@ -8,7 +8,16 @@
 		exports.edit = function(args) {
 			app.router.push( "app", {}, "edit", { id: args.data.id } )
 		}
+		
+		exports.create = function(args) {
+			var nd = data.newDefn()
+			app.router.push( "app", {}, "edit", { id: nd.value.id } )
+		}
 	</JavaScript>
+	<Circle Padding="5" Alignment="BottomRight" Margin="10" Color="{Resource SecondaryColor}"
+		Clicked="{create}">
+		<IconButton Value="&#xE145;"/>
+	</Circle>
 	<ScrollView>
 		<StackPanel ItemSpacing="5" Margin="5">
 			<Each Items="{defns}">

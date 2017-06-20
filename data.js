@@ -67,6 +67,7 @@ var fixedDefns = [{
 	icon: "\u{1F483}",
 }]
 
+var maxId = 0
 function init() {
 	fixedDefns.forEach( function(v) {
 		var activity = Observable()
@@ -82,6 +83,8 @@ function init() {
 		}
 		tasksMap[task.id] = task
 		tasks.add(task)
+		
+		maxId = Math.max( task.id, maxId )
 	})
 	updateTasks()
 }
@@ -104,5 +107,20 @@ function updateTasks() {
 	}
 }
 
+exports.newDefn = function() {
+	var id = ++maxId
+	var defn = Observable({
+		id: id,
+		name: "",
+		desc: "",
+		period: Period.Daily,
+		periodStep: 1,
+		count: 1,
+		icon: "\u{1F514}",
+	})
+	defnMap[id] = defn
+	defns.add(defn)
+	return defn
+}
 
 init()
