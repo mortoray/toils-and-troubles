@@ -42,6 +42,22 @@ exports.addActivity = function( otask ) {
 	modifiedDefn(otask.value)
 }
 
+exports.deleteDefn = function( odefn ) {
+	var defn = odefn.value
+	delete defnMap[defn.id]
+	if (defns.contains(odefn)) { //it always should
+		defns.remove(odefn)
+	}
+	delete tasksMap[defn.id]
+	if (tasks.contains(odefn)) { //it may not
+		tasks.remove(odefn)
+	}
+	
+	var fname = getDefnFilename(defn)
+	console.log( "Deleting " + fname )
+	FileSystem.delete( fname )
+}
+
 function updateTasks() {
 	//update all tasks
 	defns.forEach( function(odefn) {
@@ -119,6 +135,10 @@ if (!FileSystem.existsSync(tasksPath)) {
 	FileSystem.createDirectorySync(tasksPath)
 }
 
+function getDefnFilename( defn ) {
+	return tasksPath + "/defn_" + defn.id
+}
+
 /**
 	Saves all outdated definitions.
 */
@@ -129,7 +149,7 @@ function saveAll() {
 			return
 		}
 		
-		var name = tasksPath + "/defn_" + defn.id
+		var name = getDefnFilename(defn)
 		var stripDerived = function(key, value) {
 			if (key == "activity" ) {
 				return stripObservable(value)

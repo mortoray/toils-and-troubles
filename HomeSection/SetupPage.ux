@@ -13,6 +13,10 @@
 			var nd = data.newDefn()
 			app.router.push( "app", {}, "edit", { id: nd.value.id } )
 		}
+		
+		exports.delete = function(args) {
+			data.deleteDefn( data.getDefn( args.data.id ) )
+		}
 	</JavaScript>
 	<Circle Padding="5" Alignment="BottomRight" Margin="10" Color="{Resource SecondaryColor}"
 		Clicked="{create}">
@@ -21,27 +25,42 @@
 	<ScrollView>
 		<StackPanel ItemSpacing="3" Margin="0,3">
 			<Each Items="{defns}">
-				<DockPanel HitTestMode="LocalBounds" Padding="5" Clicked="{edit}"
-					Color="{Resource PrimaryLightColor}">
+				<Panel ux:Name="outer">
+					<SwipeGesture Direction="Left" Type="Active" ux:Name="swipe" LengthNode="options"/>
+					<SwipingAnimation Source="swipe">
+						<Move X="-1" RelativeTo="Size" RelativeNode="options"/>
+					</SwipingAnimation>
 					
-					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="54"
-						Color="{Resource TextLinkColor}" Font="{Resource TaskTitleFont}"
-						MinWidth="64"/>
+					<DockPanel HitTestMode="LocalBounds" Padding="5" Clicked="{edit}"
+						Color="{Resource PrimaryLightColor}">
+						
+						<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="54"
+							Color="{Resource TextLinkColor}" Font="{Resource TaskTitleFont}"
+							MinWidth="64"/>
+						
+						<Panel Dock="Right">
+							<Text Dock="Right" Value="&#xE5CC;" Alignment="Center" FontSize="32"
+								Font="{Resource IconFont}"/>
+						</Panel>
+						
+						<Text Value="{name}" Alignment="Top" FontSize="32" Margin="5,0"
+							Font="{Resource TaskTitleFont}"/>
+						<Text Value="{desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
+							Font="{Resource RegularFont}"/>
+						
+						<LayoutAnimation>
+							<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>
+						</LayoutAnimation>
+					</DockPanel>
 					
-					<Panel Dock="Right">
-						<Text Dock="Right" Value="&#xE5CC;" Alignment="Center" FontSize="32"
-							Font="{Resource IconFont}"/>
-					</Panel>
-					
-					<Text Value="{name}" Alignment="Top" FontSize="32" Margin="5,0"
-						Font="{Resource TaskTitleFont}"/>
-					<Text Value="{desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
-						Font="{Resource RegularFont}"/>
-					
-					<LayoutAnimation>
-						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>
-					</LayoutAnimation>
-				</DockPanel>
+					<StackPanel Alignment="Right" Anchor="0%,50%" 
+						Orientation="Horizontal" ux:Name="options">
+						<Panel Color="#FFC0A0" HitTestMode="LocalBounds" Clicked="{delete}"
+							Padding="20">
+							<BasicText Value="delete" Alignment="Center"/>
+						</Panel>
+					</StackPanel>
+				</Panel>
 			</Each>
 		</StackPanel>
 	</ScrollView>
