@@ -187,50 +187,6 @@ function loadDefn(f) {
 	}
 }
 
-exports.sampleData = function() {
-	var fixedDefns = [{
-		id: ++maxId,
-		name: "Pay Bills",
-		desc: "Mindnumbingly work through the stack",
-		period: Period.Monthly,
-		periodStep: 1,
-		count: 1,
-		icon: "\u{1F4B6}",
-	}, {
-		id: ++maxId,
-		name: "Go for a ride",
-		desc: "Take the bike out for and hour or so",
-		period: Period.Weekly,
-		periodStep: 1,
-		count: 2,
-		icon: "\u{1F6B4}",
-	}, {
-		id: ++maxId,
-		name: "Investments",
-		desc: "Check the state of the investments",
-		period: Period.Weekly,
-		periodStep: 2,
-		count: 1,
-		icon: "\u{1F4B0}",
-	}, {
-		id: ++maxId,
-		name: "Yoga",
-		desc: "Play the human puppet for a while",
-		period: Period.Daily,
-		periodStep: 1,
-		count: 1,
-		//icon: "\u{1F9D8}",
-		icon: "\u{1F483}",
-	}]
-
-	fixedDefns.forEach( function(v) {
-		var activity = Observable()
-		var defn = createDefn(v)
-		maxId = Math.max( v.id, maxId )
-	})
-	updateTasks()
-}
-
 function createDefn(data) {
 	//TODO: handle format errors
 	var cact = (data.activity || []).map( function(v) {
@@ -334,4 +290,65 @@ exports.init = function(busy) {
 	}
 	//...we aren't busy anymore
 	busy.deactivate()
+}
+
+/* Load sample data for demo'ing */
+exports.sampleData = function() {
+	var fixedDefns = [{
+		id: ++maxId,
+		name: "Pay Bills",
+		desc: "Mindnumbingly work through the stack",
+		period: Period.Monthly,
+		periodStep: 1,
+		count: 1,
+		icon: "\u{1F4B6}",
+	}, {
+		id: ++maxId,
+		name: "Go for a ride",
+		desc: "Take the bike out for an hour or so",
+		period: Period.Weekly,
+		periodStep: 1,
+		count: 3,
+		icon: "\u{1F6B4}",
+	}, {
+		id: ++maxId,
+		name: "Investments",
+		desc: "Check the state of the investments",
+		period: Period.Weekly,
+		periodStep: 2,
+		count: 1,
+		icon: "\u{1F4B0}",
+	}, {
+		id: ++maxId,
+		name: "Yoga",
+		desc: "Play the human puppet for a few minutes",
+		period: Period.Daily,
+		periodStep: 1,
+		count: 2,
+		//icon: "\u{1F9D8}",
+		icon: "\u{1F483}",
+	}, {
+		id: ++maxId,
+		name: "Big reward",
+		desc: "Relax and enjoy a slice of cake",
+		period: Period.Weekly,
+		periodStep: 1,
+		count: 1,
+		icon: "\u{1F382}",
+	}, {
+		id: ++maxId,
+		name: "Yucky cleaning",
+		desc: "Grab a sponge and bucket buddy!",
+		period: Period.Monthly,
+		periodStep: 1,
+		count: 1,
+		icon: "\u{6876}",
+	}]
+
+	fixedDefns.forEach( function(v) {
+		var activity = Observable()
+		var defn = createDefn(v)
+		maxId = Math.max( v.id, maxId )
+	})
+	updateTasks()
 }
