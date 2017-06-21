@@ -23,21 +23,20 @@
 	<ScrollView>
 		<Text ux:Class="SetupLabel" FontSize="{Resource FontSize}" Alignment="Right"/>
 		<TextBox ux:Class="SetupInput" FontSize="{Resource FontSize}"/>
-		<Grid Columns="1*,1*">
-			<SetupLabel Value="Name"/>
-			<SetupInput Value="{name}"/>
+		<StackPanel>
+			<SetupInput Value="{name}" PlaceholderText="task name"/>
 			
-			<SetupLabel Value="Description"/>
-			<SetupInput Value="{desc}"/>
+			<SetupInput Value="{desc}" PlaceholderText="short description"/>
 			
-			<WrapPanel ColumnSpan="2">
+			<WrapPanel Alignment="Center">
 				<Selection Value="{period}" MinCount="1" MaxCount="1"/>
 				
 				<Panel ux:Class="PeriodOpt" Margin="5" Color="{Resource PrimaryLightColor}">
 					<string ux:Property="Value"/>
 					<string ux:Property="Label"/>
 					<Selectable Value="{ReadProperty this.Value}"/>
-					<Text Value="{ReadProperty this.Label}"/>
+					<Text Value="{ReadProperty this.Label}" FontSize="{Resource FontSize}"
+						Font="{Resource RegularFont}"/>
 					<WhileSelected>
 						<Change this.Color="{Resource PrimaryDarkColor}"/>
 					</WhileSelected>
@@ -52,14 +51,16 @@
 				<PeriodOpt Value="monthly" Label="Monthly"/>
 			</WrapPanel>
 			
-			<SetupLabel Value="Period Step"/>
-			<SetupInput Value="{periodStep}"/>
+			<Grid Columns="auto,1*">
+				<SetupLabel Value="Period Step"/>
+				<SetupInput Value="{periodStep}"/>
 			
-			<SetupLabel Value="Per Period"/>
-			<SetupInput Value="{count}"/>
+				<SetupLabel Value="Per Period"/>
+				<SetupInput Value="{count}"/>
 
-			<SetupLabel Value="Icon"/>
-			<SetupInput Value="{icon}"/>
-		</Grid>
+				<SetupLabel Value="Icon"/>
+				<SetupInput Value="{icon}"/>
+			</Grid>
+		</StackPanel>
 	</ScrollView>
 </ActionPage>

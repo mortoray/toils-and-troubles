@@ -4,29 +4,47 @@
 		var app = require( "../app" )
 		var data = require("../data")
 		
-		exports.saveAll = data.saveAll
 		exports.sampleData = data.sampleData
 		
 		exports.nextDay = function() {
 			data.setDate( data.currentDate.value.add('1', 'days') )
 		}
+		exports.nextWeek = function() {
+			data.setDate( data.currentDate.value.add('1', 'week') )
+		}
+		exports.nextMonth = function() {
+			data.setDate( data.currentDate.value.add('1', 'month') )
+		}
 		
 		exports.date = data.currentDate.map( function(v) {
-			return v.format("LLLL")
+			return v.format("LLL")
 		})
 	</JavaScript>
 	
 	<ScrollView>
-		<StackPanel>
-			<Text Background="{Resource PrimaryLightColor}" Value="Useful Stuff"/>
+		<StackPanel ItemSpacing="10" Padding="0,10">
+			<Image Alignment="Center" File="../Assets/logo.png" Width="200"/>
+			<Text Alignment="Center" TextWrapping="Wrap" Value="Nope, there aren't any options yet."/>
+			<Text Alignment="Center" TextWrapping="Wrap" Value="© 2017 edA-qa mort-ora-y"/>
+			<Text Alignment="Center" TextWrapping="Wrap" Value="Developed with Fuse"/>
 			
 			<Panel Height="20"/>
-			<Text Background="{Resource PrimaryLightColor}" Value="Debugging Stuff"/>
 			
-			<TextButton Value="Save All" Clicked="{saveAll}"/>
-			<TextButton Value="Sample Data" Clicked="{sampleData}"/>
-			<Text Alignment="Center" Value="{date}"/>
-			<TextButton Value="Next Day" Clicked="{nextDay}"/>
+			<StackPanel Padding="5" Alignment="Center" Color="#EEE">
+				<Rectangle StrokeWidth="1" StrokeColor="#000" Layer="Background"/>
+				<Text Padding="10,5" FontSize="{Resource FontSize}" Alignment="Center" Value="Debug Menu"/>
+			
+				<TextButton Value="Use Sample Tasks" Clicked="{sampleData}"/>
+				<Panel Height="10"/>
+				
+				<Text FontSize="{Resource FontSize}" Alignment="Center" Value="{date}"/>
+				<StackPanel Orientation="Horizontal" ItemSpacing="5" Alignment="Center">
+					<Text FontSize="{Resource FontSize}" Value="Next"/>
+					<TextButton Value="Day" Clicked="{nextDay}"/>
+					<TextButton Value="Week" Clicked="{nextWeek}"/>
+					<TextButton Value="Month" Clicked="{nextMonth}"/>
+				</StackPanel>
+			</StackPanel>
 		</StackPanel>
 	</ScrollView>
 </ActionPage>

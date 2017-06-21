@@ -315,4 +315,13 @@ function cleanDefn(defn, date) {
 	return anyUpdated
 }
 
-setTimeout( loadData, 1 )
+exports.init = function(busy) {
+	try {
+		loadData()
+	} catch( e ) {
+		//ensure whatever happens that...
+		console.log( "" + e )
+	}
+	//...we aren't busy anymore
+	busy.deactivate()
+}

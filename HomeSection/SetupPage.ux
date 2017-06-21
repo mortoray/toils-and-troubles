@@ -1,4 +1,4 @@
-<ActionPage ux:Class="SetupPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
+<ActionPage ux:Class="SetupPage" Title="Setup Tasks" Color="{Resource PrimaryDarkColor}">
 
 	<JavaScript>
 		var app = require( "../app" )
