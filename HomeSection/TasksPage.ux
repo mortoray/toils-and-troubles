@@ -1,14 +1,6 @@
 <ActionPage ux:Class="TasksPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
 
-	<JavaScript>
-		var app = require( "../app" )
-		var data = require("../data")
-		exports.tasks = data.tasks
-		
-		exports.complete = function(args) {
-			data.addActivity( data.getDefn(args.data.id) )
-		}
-	</JavaScript>
+	<JavaScript File="TasksPage.js"/>
 	<WhileEmpty Items="{tasks}">
 		<Text FontSize="32" Alignment="Center" Value="Nothing to do"/>
 	</WhileEmpty>

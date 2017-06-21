@@ -5,23 +5,15 @@ var Moment = require("Library/moment")
 var currentDate = Observable(Moment())
 exports.currentDate = currentDate
 
-var tasks = Observable()
-exports.tasks = tasks
-
 var defns = Observable()
 exports.defns = defns
 
-var tasksMap = {}
+/*this is used as an event generator, anything that might require the tasks to update 
+will increment this value. Listeners can observe changes to respond. */
+var tasksVersion = Observable(0)
+exports.tasksVersion = tasksVersion
+
 var defnMap = {}
-
-exports.getTask = function(id) {
-	if (id in taskMap) {
-		return taskMap[id]
-	}
-
-	//TODO: return dummy?
-	return Observable()
-}
 
 exports.getDefn = function(id) {
 	if (id in defnMap) {
@@ -44,50 +36,27 @@ exports.addActivity = function( otask ) {
 
 exports.deleteDefn = function( odefn ) {
 	var defn = odefn.value
+	defn.deleted = true
 	delete defnMap[defn.id]
 	if (defns.contains(odefn)) { //it always should
 		defns.remove(odefn)
-	}
-	delete tasksMap[defn.id]
-	if (tasks.contains(odefn)) { //it may not
-		tasks.remove(odefn)
 	}
 	
 	var fname = getDefnFilename(defn)
 	console.log( "Deleting " + fname )
 	FileSystem.delete( fname )
+	updateTasks()
 }
 
 function updateTasks() {
-	//update all tasks
+	//set current values for definitions
 	defns.forEach( function(odefn) {
 		var defn = odefn.value
 		defn.remain.value = defn.count - defn.activity.length
 	})
 
-	var have = {}
-	//remove finished ones
-	for (var i=tasks.length -1; i >=0; --i) {
-		var task = tasks.getAt(i).value
-		
-		if (task.remain.value <= 0) {
-			tasks.removeAt(i)
-		} else {
-			have[task.id] = true
-		}
-	}
-	
-	//add missing ones
-	defns.forEach( function(odefn) {
-		var defn = odefn.value
-		if (defn.id in have) {
-			return
-		}
-		
-		if (defn.remain.value > 0) {
-			tasks.add(odefn)
-		}
-	})
+	//inform listeners
+	tasksVersion.value += 1
 }
 
 var anyDefnDirty = false
