@@ -7,13 +7,13 @@
 		exports.sampleData = data.sampleData
 		
 		exports.nextDay = function() {
-			data.setDate( data.currentDate.value.add('1', 'days') )
+			data.setDate( data.currentDate.value.clone().add('1', 'days') )
 		}
 		exports.nextWeek = function() {
-			data.setDate( data.currentDate.value.add('1', 'week') )
+			data.setDate( data.currentDate.value.clone().add('1', 'week') )
 		}
 		exports.nextMonth = function() {
-			data.setDate( data.currentDate.value.add('1', 'month') )
+			data.setDate( data.currentDate.value.clone().add('1', 'month') )
 		}
 		
 		exports.date = data.currentDate.map( function(v) {

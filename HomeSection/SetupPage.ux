@@ -55,7 +55,7 @@
 					
 					<StackPanel Alignment="Right" Anchor="0%,50%" 
 						Orientation="Horizontal" ux:Name="options">
-						<Panel Color="#FFC0A0" HitTestMode="LocalBounds" Clicked="{delete}"
+						<Panel Color="#FFA0A0" HitTestMode="LocalBounds" Clicked="{delete}"
 							Padding="20">
 							<BasicText Value="delete" Alignment="Center"/>
 						</Panel>

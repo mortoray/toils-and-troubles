@@ -30,6 +30,7 @@ var Period = Object.freeze({
 	Weekly: "weekly",
 	Monthly: "monthly",
 })
+exports.Period = Period
 
 exports.addActivity = function( odefn ) {
 	odefn.value.activity.add( Moment() )
@@ -55,6 +56,7 @@ function updateTasks() {
 	defns.forEach( function(odefn) {
 		var defn = odefn.value
 		defn.remain.value = defn.count - defn.activity.length
+		defn.doneDate.value = whenNeedsDone(defn, currentDate.value)
 	})
 
 	//inform listeners
@@ -238,6 +240,7 @@ function createDefn(data) {
 	data.activity.replaceAll(cact)
 	
 	data.remain = Observable(0)
+	data.doneDate = Observable(Moment())
 	
 	//version will track if we need to save this object again
 	data.version = 1
@@ -279,7 +282,7 @@ function cleanDefn(defn, date) {
 		var remove = true
 		switch (defn.period) {
 			case Period.Daily:
-				remove = date.day() > ad.day() ||
+				remove = date.isoWeekday() > ad.isoWeekday() ||
 					date.week() > ad.week() ||
 					date.month() > ad.month() ||
 					date.year() > ad.year();
@@ -304,6 +307,22 @@ function cleanDefn(defn, date) {
 	}
 	
 	return anyUpdated
+}
+
+/**
+	@return (Moment) when this definition needs to be completed
+*/
+function whenNeedsDone(defn, date) {
+	switch (defn.period) {
+		case Period.Daily:
+			return date.clone().endOf('day')
+			
+		case Period.Weekly:
+			return date.clone().isoWeekday(7).endOf('day')
+			
+		case Period.Monthly:
+			return date.clone().endOf('month')
+	}
 }
 
 exports.init = function(busy) {

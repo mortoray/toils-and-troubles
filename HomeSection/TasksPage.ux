@@ -8,35 +8,57 @@
 		<StackPanel ItemSpacing="3" Margin="0,3">
 			<Each Items="{tasks}">
 				<DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5"
-					Color="{Resource PrimaryLightColor}">
+					Color="{Resource PrimaryLightColor}" ux:Name="taskPanel">
 					
-					<Text Dock="Left" Value="{icon}" Alignment="Center" FontSize="54"
+					<Text Dock="Left" Value="{defn.icon}" Alignment="Center" FontSize="54"
 						MinWidth="64" Color="{Resource TextLinkColor}"/>
 					
 					<Panel Dock="Right" Width="56">
-						<WhileTrue Value="{remain} > 0">
+						<WhileTrue Value="{defn.remain} > 0">
 							<Text Dock="Right" Value="&#xE5CA;" Alignment="Center" FontSize="54"
-								Color="{Resource TextLinkColor}" Font="{Resource IconFont}"
-								Clicked="{complete}"/>
+								Color="{Resource TextLinkColor}" Font="{Resource IconFont}">
+								<Clicked>
+									<Change taskPanel.Color="{Resource SecondaryColor}" Duration="0.3"
+										Easing="CubicOut" DurationBack="0.1"/>
+									<Callback Handler="{complete}" Delay="0.1"/>
+								</Clicked>
+							</Text>
+								
+							<WhileTrue Value="{defn.count} > 1">
+								<Circle Alignment="BottomRight" Color="{Resource SecondaryColor}"
+									HitTestMode="None" Width="25" Height="25">
+									<Text Value="{defn.remain}" Font="{Resource IconLabelFont}" 
+										FontSize="16" Alignment="Center"
+										Color="{Resource TextSecondaryColor}"/>
+								</Circle>
+							</WhileTrue>
 						</WhileTrue>
 					</Panel>
 					
 					<StackPanel Dock="Right" Margin="5,0">
 						<Panel Padding="5,2" Alignment="Right">
-							<Text Value="{period}" FontSize="14" Font="{Resource DiminishedFont}"/>
+							<Text Value="{frequency}" FontSize="14" Font="{Resource DiminishedFont}"/>
 						</Panel>
+						<WhileString Value="{defn.period}" Equals="daily" Invert="true">
+							<Panel Padding="5,2" Alignment="Right">
+								<Text Value="{remainDays} days left" FontSize="14" Font="{Resource DiminishedFont}"/>
+							</Panel>
+						</WhileString>
 					</StackPanel>
 					
-					<Text Value="{name}" Alignment="Top" FontSize="32" Margin="5,0"
+					<Text Value="{defn.name}" Alignment="Top" FontSize="32" Margin="5,0"
 						Font="{Resource TaskTitleFont}"/>
-					<Text Value="{desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
+					<Text Value="{defn.desc}" Alignment="Bottom" FontSize="18" Margin="5,0"
 						Font="{Resource RegularFont}"/>
 					
 					<RemovingAnimation>
-						<Move X="-1" RelativeTo="ParentSize" Duration="0.3"/>
+						<Move X="-1" RelativeTo="ParentSize" Duration="0.3"
+							Easing="SinusoidalIn"/>
+						<Scale Factor="0.9" Duration="0.1"/>
 					</RemovingAnimation>
 					<LayoutAnimation>
-						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"/>
+						<Move Vector="1" RelativeTo="PositionChange" Duration="0.3"
+							Easing="SinusoidalInOut"/>
 					</LayoutAnimation>
 				</DockPanel>
 			</Each>

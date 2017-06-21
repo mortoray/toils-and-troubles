@@ -3,9 +3,9 @@
 	<float4 ux:Global="PrimaryLightColor" ux:Value="#FFFFFF"/>
 	<float4 ux:Global="PrimaryDarkColor" ux:Value="#D0D0D0"/>
 
-	<float4 ux:Global="SecondaryColor" ux:Value="#F0D8D8"/>
-	<float4 ux:Global="SecondaryLightColor" ux:Value="#FFF8F8"/>
-	<float4 ux:Global="SecondaryDarkColor" ux:Value="#D0E4E4"/>
+	<float4 ux:Global="SecondaryColor" ux:Value="#D8F0D8"/>
+	<float4 ux:Global="SecondaryLightColor" ux:Value="#F8FFF8"/>
+	<float4 ux:Global="SecondaryDarkColor" ux:Value="#E4D0E4"/>
 
 	<float4 ux:Global="TextPrimaryColor" ux:Value="#000000"/>
 	<float4 ux:Global="TextSecondaryColor" ux:Value="#222222"/>
