@@ -5,6 +5,8 @@ var Moment = require("Library/moment")
 var currentDate = Observable(Moment())
 exports.currentDate = currentDate
 
+/* Definitions are the things that define the recurring tasks. The term "task" will otherwise tend to be used
+to indicate the current list of tasks the user must do (on the current tasks page). */
 var defns = Observable()
 exports.defns = defns
 
@@ -29,9 +31,9 @@ var Period = Object.freeze({
 	Monthly: "monthly",
 })
 
-exports.addActivity = function( otask ) {
-	otask.value.activity.add( Moment() )
-	modifiedDefn(otask.value)
+exports.addActivity = function( odefn ) {
+	odefn.value.activity.add( Moment() )
+	modifiedDefn(odefn.value)
 }
 
 exports.deleteDefn = function( odefn ) {
@@ -99,13 +101,13 @@ exports.newDefn = function() {
 }
 
 
-var tasksPath = FileSystem.dataDirectory + "/tasks"
-if (!FileSystem.existsSync(tasksPath)) {
-	FileSystem.createDirectorySync(tasksPath)
+var dataPath = FileSystem.dataDirectory + "/data"
+if (!FileSystem.existsSync(dataPath)) {
+	FileSystem.createDirectorySync(dataPath)
 }
 
 function getDefnFilename( defn ) {
-	return tasksPath + "/defn_" + defn.id
+	return dataPath + "/defn_" + defn.id
 }
 
 /**
@@ -157,7 +159,7 @@ function startsWith(str, sub) {
 }
 
 function loadData() {
-	var files = FileSystem.listFilesSync( tasksPath )
+	var files = FileSystem.listFilesSync( dataPath )
 	files.forEach( function(f) {
 		var base = basename(f)
 		if (startsWith(base,"defn_")) {
@@ -266,7 +268,7 @@ function cleanDefns(date) {
 }
 
 /**
-	removes stale activity dates from the task
+	removes stale activity dates from the defn
 */
 function cleanDefn(defn, date) {
 	var anyUpdated = false
