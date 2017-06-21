@@ -1,9 +1,63 @@
-<ActionPage ux:Class="TasksPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
+<Page ux:Class="TasksPage" Title="Current Tasks" Color="{Resource PrimaryDarkColor}">
 
+
+	<!-- Copied and modified ActionBar since I couldn't quickly figure out a way to replace the title content -->
+	<NodeGroup>
+		<WhileActive Threshold="0.5" Path="Local">
+			<Change titleRegion.IsEnabled="true"/>
+		</WhileActive>
+
+		<AlternateRoot ParentNode="{Resource ActionBar}" IsEnabled="false" ux:Name="titleRegion">
+			<Panel Navigation="{Resource Router}">
+				<JavaScript>
+					var app = require( "../app" )
+					exports.goBack = function() {
+						app.router.goBack()
+					}
+				</JavaScript>
+				<WhileCanGoBack>
+					<IconButton Alignment="Left" Value="&#xE5C4;" Clicked="{goBack}"/>
+				</WhileCanGoBack>
+
+				<!-- Include Bit -->
+				<Panel ux:Class="FilterOpt" Padding="10,4">
+					<float4 ux:Property="CornerRadius"/>
+					<Rectangle Layer="Background" Color="#0000" ux:Name="back"
+						StrokeWidth="1.5" StrokeColor="{Resource TextLineInactive}"
+						CornerRadius="{Property this.CornerRadius}"/>
+					
+					<string ux:Property="Value"/>
+					<string ux:Property="Label"/>
+					<Selectable Value="{ReadProperty this.Value}"/>
+					<Text Value="{ReadProperty this.Label}" FontSize="{Resource IconLabelFontSize}"
+						Font="{Resource IconLabelFont}" Color="{Resource TextLineInactive}" ux:Name="text"
+						Alignment="Center"/>
+					<WhileSelected>
+						<Change back.Color="{Resource TextLinkColor}"/>
+						<Change text.Color="#000"/>
+					</WhileSelected>
+					<Tapped>
+						<ToggleSelection/>
+					</Tapped>
+				</Panel>
+				
+				<StackPanel Orientation="Horizontal" Alignment="Center" Margin="2">
+					<Selection Value="{filter}" MinCount="1" MaxCount="1"/>
+					<FilterOpt Value="all" Label="All" CornerRadius="4,0,0,4"/>
+					<FilterOpt Value="week" Label="Week"/>
+					<FilterOpt Value="day" Label="Day" CornerRadius="0,4,4,0"/>
+				</StackPanel>
+				<!-- End Include bit -->
+			</Panel>
+		</AlternateRoot>
+	</NodeGroup>	
+	<!-- End of Copy -->
+	
 	<JavaScript File="TasksPage.js"/>
 	<WhileEmpty Items="{tasks}">
 		<Text FontSize="32" Alignment="Center" Value="Nothing to do"/>
 	</WhileEmpty>
+	<DockPanel>
 	<ScrollView>
 		<StackPanel ItemSpacing="3" Margin="0,3">
 			<Each Items="{tasks}">
@@ -64,4 +118,5 @@
 			</Each>
 		</StackPanel>
 	</ScrollView>
-</ActionPage>
+	</DockPanel>
+</Page>

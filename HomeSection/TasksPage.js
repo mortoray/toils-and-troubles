@@ -13,11 +13,37 @@ exports.complete = function(args) {
 	data.addActivity( data.getDefn(args.data.id) )
 }
 
-data.tasksVersion.onValueChanged( module, function() {
+/* Filters to show only tasks that need to be done by a given date */
+var showDoneBy = null
+var filter = Observable("all")
+exports.filter = filter
+filter.onValueChanged( module, function(v) { 
+	if (v == "week") {
+		showDoneBy = data.currentDate.value.clone().isoWeekday(7).endOf('day')
+	} else if( v == "day") { 
+		showDoneBy = data.currentDate.value.clone().endOf('day')
+	} else {
+		showDoneBy = null
+	}
+	updateTasks()
+})
+
+function updateTasks() {
 	var have = {}
 	
 	function useDefn(defn) {
-		return !defn.deleted && defn.remain.value > 0
+		if (defn.deleted || defn.remain.value <= 0) {
+			return false
+		}
+		
+		if (showDoneBy) {
+			var minutes = defn.doneDate.value.diff( showDoneBy, 'minutes', true/*float*/ )
+			if (minutes >= 1) { //1 for uncertain precision
+				return false
+			}
+		}
+		
+		return true
 	}
 	
 	//remove finished and deleted ones
@@ -60,4 +86,6 @@ data.tasksVersion.onValueChanged( module, function() {
 			})
 		}
 	})
-})
+}
+
+data.tasksVersion.onValueChanged( module, updateTasks )

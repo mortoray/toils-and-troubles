@@ -23,7 +23,7 @@
 
 	<float ux:Key="FontSize" ux:Value="22"/>
 	<float ux:Key="IconFontSize" ux:Value="32"/>
-	<float ux:Key="IconLabelFontSize" ux:Value="18"/>
+	<float ux:Key="IconLabelFontSize" ux:Value="15"/>
 
 	<Panel ux:Class="TextButton" Padding="10,5">
 		<string ux:Property="Value"/>
