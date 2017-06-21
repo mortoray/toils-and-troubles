@@ -36,4 +36,7 @@
 			Color="{Resource TextLinkColor}" Font="{Resource IconFont}"/>
 	</Panel>
 
+	<Text ux:Class="BasicText" FontSize="{Resource FontSize}"
+		Font="{Resource RegularFont}" TextColor="{Resource TextPrimaryColor}"/>
+	
 </NodeGroup>

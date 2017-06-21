@@ -11,56 +11,101 @@
 		exports.desc = defn.pickTwoWay( "desc" )
 		exports.period = defn.pickTwoWay( "period" )
 		exports.periodStep = defn.pickTwoWay( "periodStep" )
-		exports.count = defn.pickTwoWay( "count" )
+		exports.count = defn.pickTwoWay( "count" ).mapTwoWay( function(v) { 
+			return v
+		}, function( v, ov ) {
+			return parseInt(v)
+		})
 		exports.icon = defn.pickTwoWay( "icon" )
 		
 		exports.onDone = function() {
 			data.modifiedDefn(defn.value)
 		}
+		
+		exports.commonIcons = [
+			"\u{2709}", "\u{1f33b}", "\u{1f354}", "\u{1f389}", "\u{1f3ab}", 
+			 "\u{1f3ae}", "\u{1f3b6}", "\u{26bd}", "\u{1f3c3}", "\u{1f3e2}",
+			 "\u{1f412}", "\u{1f455}", "\u{1f468}", "\u{1f469}", "\u{1f4a1}",
+			 "\u{1f4ac}", "\u{1f4b0}", "\u{1f514}", "\u{1f527}", "\u{1f695}",
+			 "\u{2615}", "\u{267b}", "\u{270f}", "\u{1f31f}", "\u{1f36a}",
+			 "\u{1f37a}", "\u{1f393}", "\u{1f3ab}", "\u{1f48a}", "\u{1f4aa}",
+			]
 	</JavaScript>
 	<Deactivated Handler="{onDone}"/>
+
+	<Panel ux:Class="PeriodOpt" Padding="10,5" >
+		<Rectangle Layer="Background" Color="#0000" ux:Name="back"
+			StrokeWidth="1" StrokeColor="{Resource PrimaryDarkColor}"/>
+		
+		<string ux:Property="Value"/>
+		<string ux:Property="Label"/>
+		<Selectable Value="{ReadProperty this.Value}"/>
+		<Text Value="{ReadProperty this.Label}" FontSize="{Resource FontSize}"
+			Font="{Resource RegularFont}"/>
+		<WhileSelected>
+			<Change back.Color="{Resource PrimaryDarkColor}"/>
+		</WhileSelected>
+		<Tapped>
+			<ToggleSelection/>
+		</Tapped>
+	</Panel>
 	
 	<ScrollView>
 		<Text ux:Class="SetupLabel" FontSize="{Resource FontSize}" Alignment="Right"/>
-		<TextBox ux:Class="SetupInput" FontSize="{Resource FontSize}"/>
-		<StackPanel>
-			<SetupInput Value="{name}" PlaceholderText="task name"/>
+		<TextInput ux:Class="SetupInput" Padding="3">
+			<Rectangle Layer="Background" CornerRadius="2" StrokeColor="{Resource PrimaryDarkColor}"
+				StrokeWidth="1"/>
+		</TextInput>
+		<StackPanel Padding="10" ItemSpacing="10">
+			<SetupInput Value="{name}" PlaceholderText="task name" FontSize="32"
+				Font="{Resource TaskTitleFont}"/>
+			<SetupInput Value="{desc}" PlaceholderText="short description" FontSize="18"/>
 			
-			<SetupInput Value="{desc}" PlaceholderText="short description"/>
-			
+			<Panel Height="30"/>
+			<BasicText Value="I need to do this..." Alignment="Center"/>
 			<WrapPanel Alignment="Center">
-				<Selection Value="{period}" MinCount="1" MaxCount="1"/>
-				
-				<Panel ux:Class="PeriodOpt" Margin="5" Color="{Resource PrimaryLightColor}">
-					<string ux:Property="Value"/>
-					<string ux:Property="Label"/>
-					<Selectable Value="{ReadProperty this.Value}"/>
-					<Text Value="{ReadProperty this.Label}" FontSize="{Resource FontSize}"
-						Font="{Resource RegularFont}"/>
-					<WhileSelected>
-						<Change this.Color="{Resource PrimaryDarkColor}"/>
-					</WhileSelected>
-					<Tapped>
-						<ToggleSelection/>
-					</Tapped>
-				</Panel>
-				
-				<!-- TODO: how to use the `Period` enum directly? -->
-				<PeriodOpt Value="daily" Label="Daily"/>
-				<PeriodOpt Value="weekly" Label="Weekly"/>
-				<PeriodOpt Value="monthly" Label="Monthly"/>
+				<Selection Value="{count}" MinCount="1" MaxCount="1"/>
+				<PeriodOpt Value="1" Label="once"/>
+				<PeriodOpt Value="2" Label="twice"/>
+				<PeriodOpt Value="3" Label="thrice"/>
+				<PeriodOpt Value="4" Label="4 times"/>
+				<PeriodOpt Value="5" Label="5 times"/>
 			</WrapPanel>
 			
-			<Grid Columns="auto,1*">
-				<SetupLabel Value="Period Step"/>
-				<SetupInput Value="{periodStep}"/>
-			
-				<SetupLabel Value="Per Period"/>
-				<SetupInput Value="{count}"/>
+			<BasicText Value="...every..." Alignment="Center"/>
+			<WrapPanel Alignment="Center">
+				<Selection Value="{period}" MinCount="1" MaxCount="1"/>
+				<PeriodOpt Value="daily" Label="day"/>
+				<PeriodOpt Value="weekly" Label="week"/>
+				<PeriodOpt Value="monthly" Label="month"/>
+			</WrapPanel>
 
-				<SetupLabel Value="Icon"/>
-				<SetupInput Value="{icon}"/>
-			</Grid>
+			<DockPanel Margin="0,30">
+				<SetupInput Dock="Left" Value="{icon}" FontSize="54" ux:Name="icon" Padding="8"
+					Margin="10,0" Alignment="Top"/>
+				<WrapPanel Dock="Top">
+					<BasicText Value="Tap to edit image or" Alignment="VerticalCenter"/>
+					<TextButton Value="select common ▼" Alignment="VerticalCenter">
+						<Clicked>
+							<Set iconSelect.Value="true"/>
+						</Clicked>
+					</TextButton>
+				</WrapPanel>
+				
+				<WhileTrue ux:Name="iconSelect">
+					<WrapPanel>
+						<Each Items="{commonIcons}">
+							<Panel Padding="5" HitTestMode="LocalBounds">
+								<BasicText Value="{}" FontSize="28" Alignment="Center"/>
+								<Clicked>
+									<Set icon.Value="{}"/>
+									<Set iconSelect.Value="false"/>
+								</Clicked>
+							</Panel>
+						</Each>
+					</WrapPanel>
+				</WhileTrue>
+			</DockPanel>
 		</StackPanel>
 	</ScrollView>
 </ActionPage>
