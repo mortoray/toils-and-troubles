@@ -1,17 +1,16 @@
 <ActionPage ux:Class="SetupPage" Title="Setup Tasks" Color="{Resource PrimaryDarkColor}">
 
-	<JavaScript>
-		var app = require( "../app" )
+	<JavaScript dep:router="findRouter()">
 		var data = require("../data")
 		exports.defns = data.defns
 		
 		exports.edit = function(args) {
-			app.router.push( "app", {}, "edit", { id: args.data.id } )
+			router.push( "app", {}, "edit", { id: args.data.id } )
 		}
 		
 		exports.create = function(args) {
 			var nd = data.newDefn()
-			app.router.push( "app", {}, "edit", { id: nd.value.id } )
+			router.push( "app", {}, "edit", { id: nd.value.id } )
 		}
 		
 		exports.delete = function(args) {

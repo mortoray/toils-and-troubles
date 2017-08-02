@@ -1,12 +1,10 @@
 <App>
 	<Router ux:Name="router"/>
-	<ResourceObject Key="Router" Value="router"/>
 
 	<JavaScript>
 		var app = require( "./app"  )
 		var data = require( "./data" )
 		
-		app.setRouter( router )
 		exports.done = function() {
 			router.goto( "app", {}, "home" )
 		}

@@ -4,11 +4,10 @@
 	</WhileActive>
 
 	<AlternateRoot ParentNode="{Resource ActionBar}" IsEnabled="false" ux:Name="titleRegion">
-		<Panel Navigation="{Resource Router}">
-			<JavaScript>
-				var app = require( "../app" )
+		<Panel Navigation="findRouter()">
+			<JavaScript dep:router="findRouter()">
 				exports.goBack = function() {
-					app.router.goBack()
+					router.goBack()
 				}
 			</JavaScript>
 			<WhileCanGoBack>
